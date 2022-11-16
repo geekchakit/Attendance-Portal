@@ -1,0 +1,19 @@
+﻿.login {
+    min-height: 100vh;
+}
+
+.bg-image {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/exam-module-vikash.appspot.com/o/VsbmPic.png?alt=media&token=c40682d7-ad22-47d4-b286-d19b1f2f1a88');
+    background-size: cover;
+    background-position: center;
+}
+
+.login-heading {
+    font-weight: 300;
+}
+
+.btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+}
