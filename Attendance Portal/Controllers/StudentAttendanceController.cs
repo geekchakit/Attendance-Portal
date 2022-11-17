@@ -10,5 +10,10 @@ namespace Attendance_Portal.Controllers
         {
             return View();
         }
+
+        public IActionResult _studentlist()
+        {
+            return PartialView();
+        }
     }
 }
