@@ -15,5 +15,15 @@ namespace Attendance_Portal.Controllers
         {
             return PartialView();
         }
+
+        public IActionResult AttendanceRecord()
+        {
+            return View();
+        }
+
+        public IActionResult _AttendanceRecord()
+        {
+            return PartialView();
+        }
     }
 }

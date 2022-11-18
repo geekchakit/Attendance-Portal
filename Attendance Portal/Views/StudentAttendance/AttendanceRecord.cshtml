@@ -1,12 +1,14 @@
 ﻿<div class="card m-5">
     <div class="card-header">
         <div class="card-title">
-            <span class="badge bg-warning text-dark">Attendance Sheet</span>
+            <span class="badge bg-warning text-dark">
+                Attendance Record
+            </span>
         </div>
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <span class="badge rounded-pill bg-info">Department</span>
                 <select class="form-select m-1">
                     <option value="">Select</option>
@@ -14,9 +16,9 @@
                     <option value="2">BBA</option>
                 </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <span class="badge rounded-pill bg-success">Semester</span>
-                <select class="form-select m-1" id="Semester">
+                <select class="form-select m-1" id="SemesterCheck">
                     <option value="">Select</option>
                     <option value="1">1ST</option>
                     <option value="2">2ND</option>
@@ -26,7 +28,7 @@
                     <option value="6">6TH</option>
                 </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <span class="badge rounded-pill bg-primary">Subject</span>
                 <select class="form-select m-1">
                     <option value="">Select</option>
@@ -34,29 +36,20 @@
                     <option value="2">JAVA</option>
                 </select>
             </div>
-            <div class="col-md-3">
-                <span class="badge rounded-pill bg-secondary">Attendance Date</span>
-                <input type="date" class="form-control m-1"/>
-            </div>
         </div>
-        <button class="btn btn-primary m-1" id="MarkHoliday">Mark Holiday</button>
-        <button class="btn btn-success float-end m-1" id="MarkAttendance">Mark Attendance</button>
-        <div class="m-2" id="_studentlist">
+        <div class="m-2" id="_AttendanceRecord">
         </div>
     </div>
-
     <div class="card-footer">
-        <form method="post" asp-controller="Home" asp-action="Logout">
-            <button class="btn btn-danger float-end btn-block">Logout</button>
-        </form>
-        <a class="btn btn-info" asp-controller="StudentAttendance" asp-action="AttendanceRecord">View Records</a>
+        <button class="btn btn-primary m-1" id="ExportAttendance">Export Data</button>
+        <a class="btn btn-secondary m-1" asp-controller="StudentAttendance" asp-action="Index">Back</a>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        $("#Semester").change(function () {
-            $("#_studentlist").load("/StudentAttendance/_studentlist");
+        $("#SemesterCheck").change(function () {
+            $("#_AttendanceRecord").load("/StudentAttendance/_AttendanceRecord");
         })
     })
 </script>
