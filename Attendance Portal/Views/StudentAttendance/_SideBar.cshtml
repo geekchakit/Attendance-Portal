@@ -1,0 +1,53 @@
+﻿@model Teacherinfo
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="~/fonts/icomoon/style.css">
+
+<link rel="stylesheet" href="~/css/owl.carousel.min.css">
+<link rel="stylesheet" href="~/css/style.css">
+<script src="~/js/main.js"></script>
+
+<aside class="sidebar">
+    <div class="toggle">
+        <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+            <span></span>
+        </a>
+    </div>
+    <div class="side-inner">
+
+        <div class="profile">
+            <img src="@Model.Image" alt="Image" class="img-fluid">
+            <h3 class="name">@Model.Name</h3>
+            <span class="country">Teacher</span>
+            <h1></h1>
+            <span class="badge bg-warning">User</span>
+        </div>
+
+        <div class="counter d-flex justify-content-center">
+            <!-- <div class="row justify-content-center"> -->
+            <div class="col">
+                <span class="number-label text-dark">C</span>
+            </div>
+            <div class="col">
+                <span class="number-label text-dark">C++</span>
+            </div>
+            <div class="col">
+                <span class="number-label text-dark">JAVA</span>
+            </div>
+            <!-- </div> -->
+        </div>
+
+        <div class="nav-menu">
+            <ul>
+                <li class="active"><a asp-controller="StudentAttendance" asp-action="Index"><span class="bi bi-file-earmark-spreadsheet mr-3"></span>Attendance Sheet</a></li>
+                <li> <a asp-controller="StudentAttendance" asp-action="AttendanceRecord"><span class="bi bi-card-list mr-3"></span>View Record</a></li>
+                <li> <a method="post" asp-controller="Home" asp-action="Logout"><span class="icon-sign-out mr-3"></span>Log out</a></li>
+            </ul>
+        </div>
+    </div>
+
+</aside>

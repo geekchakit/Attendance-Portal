@@ -1,4 +1,4 @@
-﻿<div class="card m-5">
+﻿<div class="card m-2">
     <div class="card-header">
         <div class="card-title">
             <span class="badge bg-warning text-dark">
@@ -8,7 +8,7 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <span class="badge rounded-pill bg-info">Department</span>
                 <select class="form-select m-1">
                     <option value="">Select</option>
@@ -16,7 +16,7 @@
                     <option value="2">BBA</option>
                 </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <span class="badge rounded-pill bg-success">Semester</span>
                 <select class="form-select m-1" id="SemesterCheck">
                     <option value="">Select</option>
@@ -28,7 +28,15 @@
                     <option value="6">6TH</option>
                 </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
+                <span class="badge rounded-pill bg-primary">From</span>
+                <input type="date" id="StartDate" class="form-control m-1" />
+            </div>
+            <div class="col-md-2">
+                <span class="badge rounded-pill bg-primary">To</span>
+                <input type="date" id="EndDate" class="form-control m-1" />
+            </div>
+            <div class="col-md-2">
                 <span class="badge rounded-pill bg-primary">Subject</span>
                 <select class="form-select m-1">
                     <option value="">Select</option>
@@ -51,5 +59,7 @@
         $("#SemesterCheck").change(function () {
             $("#_AttendanceRecord").load("/StudentAttendance/_AttendanceRecord");
         })
+        var EpCode = localStorage.getItem("EmployeeCode");
+        $("#_SideBar").load("_SideBar?EmployeeCode=" + EpCode);
     })
 </script>

@@ -1,21 +1,21 @@
-﻿<div class="card m-5">
+﻿
+<div class="card m-2">
 	<div class="card-header">
 		<div class="card-title">
 			<span class="badge bg-warning text-dark">Attendance Sheet</span>
-			<a class="bi text-dark float-end bi-person-circle" data-bs-toggle="modal" data-bs-target="#exampleModal"></a>
 		</div>
 	</div>
 	<div class="card-body">
 		<div class="row">
 			<div class="col-md-3">
 				<span class="badge bg-info">Department</span>
-				<select class="form-select m-1">
+				<select class="form-select m-1" id="Course">
 					<option value="">Select</option>
 					<option value="1">BCA</option>
 					<option value="2">BBA</option>
 				</select>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-2">
 				<span class="badge bg-success">Semester</span>
 				<select class="form-select m-1" id="Semester">
 					<option value="">Select</option>
@@ -27,99 +27,61 @@
 					<option value="6">6TH</option>
 				</select>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-2">
+				<span class="badge bg-secondary">Period</span>
+				<select class="form-select m-1" id="TimeSlot">
+					<option value="">-Select-</option>
+					<option value="1">8.40-9.40</option>
+					<option value="2">9.40-10.40</option>
+					<option value="3">11.00-12.00</option>
+					<option value="4">1.00-2.00</option>
+					<option value="5">2.00-2.40</option>
+				</select>
+			</div>
+			<div class="col-md-2">
 				<span class="badge bg-primary">Subject</span>
-				<select class="form-select m-1">
+				<select class="form-select m-1" id="Subject">
 					<option value="">Select</option>
-					<option value="1">C</option>
-					<option value="2">JAVA</option>
+					<option value="AEC1">Environmental Science</option>
+					<option value="CC1">Digital Logic</option>
+					<option value="CC2">Programming using C</option>
+					<option value="GEIC1">Principles of Management</option>
 				</select>
 			</div>
 			<div class="col-md-3">
 				<span class="badge bg-secondary">Attendance Date</span>
-				<input type="date" class="form-control m-1" />
+				<input type="date" id="datetime" class="form-control m-1" />
 			</div>
 		</div>
-		<button class="btn btn-primary m-1" id="MarkHoliday">Mark Holiday</button>
-		<button class="btn btn-success float-end m-1" id="MarkAttendance">Mark Attendance</button>
+		<div class="row">
+			<div class="col-md-6">
+				<button class="btn btn-primary m-1" id="MarkHoliday">Mark Holiday</button>
+			</div>
+			<div class="col-md-6 ms-auto">
+				<button class="btn btn-success float-end m-1" id="MarkAttendance">Mark Attendance</button>
+			</div>
+		</div>
 		<div class="m-2" id="_studentlist">
 		</div>
 	</div>
 
 	<div class="card-footer">
-		<form method="post" asp-controller="Home" asp-action="Logout">
-			<button class="btn btn-danger float-end btn-block">Logout</button>
-		</form>
-		<a class="btn btn-info" asp-controller="StudentAttendance" asp-action="AttendanceRecord">View Records</a>
-	</div>
-</div>
--
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Teacher's Details</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div class="card user-card-full">
-					<div class="row m-l-0 m-r-0">
-						<div class="col-sm-4 bg-c-lite-green user-profile">
-							<div class="card-block text-center text-white">
-								<div class="m-b-25">
-									<img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
-								</div>
-								<h6 class="f-w-600">Hembo Tingor</h6>
-								<p>Web Designer</p>
-								<i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-							</div>
-						</div>
-						<div class="col-sm-8">
-							<div class="card-block">
-								<h6 class="m-b-20 p-b-5 b-b-default f-w-600" style="padding-top:10px;"><strong>Information</strong></h6>
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="m-b-10 f-w-600"><strong>Email</strong></p>
-										<h6 class="text-muted f-w-400">rntng@gmail.com</h6>
-									</div>
-									<div class="col-sm-6">
-										<p class="m-b-10 f-w-600"><strong>Phone</strong></p>
-										<h6 class="text-muted f-w-400">98979989898</h6>
-									</div>
-								</div>
-								<h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600" style="padding-top:10px;"><strong>Subjects</strong></h6>
-								<div class="row">
-									<div class="col-sm-6">
-										<p class="m-b-10 f-w-600">C++</p>
-										
-									</div>
-									<div class="col-sm-6">
-										<p class="m-b-10 f-w-600">Java</p>
-										
-									</div>
-								</div>
-								<ul class="social-link list-unstyled m-t-40 m-b-10">
-									<li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
-									<li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
-									<li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			</div>
-		</div>
+
 	</div>
 </div>
 
+			
 <script>
 	$(document).ready(function () {
-		$("#Semester").change(function () {
-			$("#_studentlist").load("/StudentAttendance/_studentlist");
+		$("#Subject").change(function () {
+			var SubjectCode = $("#Subject").val();
+			var CurrentDate = $("#datetime").val();
+			var TimeSlot = $("#TimeSlot").val();
+			$("#_studentlist").load("/StudentAttendance/_studentlist?SubjectCode=" + SubjectCode + "&CurrentDate=" + CurrentDate + "&TimeSlot=" + TimeSlot);
 		})
+		var EmployeeCode = @ViewBag.EmployeeCode;
+		localStorage.setItem("EmployeeCode",EmployeeCode);
+		$("#_SideBar").load("_SideBar?EmployeeCode=" + EmployeeCode);
+		document.getElementById('datetime').value = new Date().toISOString().slice(0, 10);
 	})
 </script>

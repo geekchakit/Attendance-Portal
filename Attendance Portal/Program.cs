@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Attendance_Portal.Models;
+using Microsoft.EntityFrameworkCore;
+using freecode.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 options.LoginPath = "/Home/Login";
 
             });
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefultConnection")
+    ));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -4,16 +4,17 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
+using freecode.Data;
 
 namespace Attendance_Portal.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext db)
         {
-            _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()
@@ -28,9 +29,8 @@ namespace Attendance_Portal.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password, string ReturnUrl)
-        {
-            ReturnUrl = "/StudentAttendance/Index";
-            if ((username == "Admin") && (password == "Admin"))
+        {            
+            if (_db.Teacherinfo.Where(x=>x.EmployeeID==username&&x.Password==password).Any())
             {
                 var claims = new List<Claim>
                 {
@@ -39,13 +39,14 @@ namespace Attendance_Portal.Controllers
                 var claimsIdentity = new ClaimsIdentity(claims, "Login");
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                string EmployeeCode = _db.Teacherinfo.Where(x => x.EmployeeID == username && x.Password == password).Select(s => s.EmployeeID).FirstOrDefault();
+                ReturnUrl = "/StudentAttendance/Index?EmployeeId="+EmployeeCode; 
                 return Redirect(ReturnUrl);
             }
             else
                 return View();
         }
 
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();

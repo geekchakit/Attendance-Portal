@@ -1,8 +1,9 @@
-﻿<div class="col-md-12 table-responsive m-0">
+﻿@using Attendance_Portal.ViewModels;
+@model IEnumerable<StudentList>
+<div class="col-md-12 table-responsive m-0">
     <table class="table table-bordered">
         <thead>
             <tr>
-
                 <th>
                     Student Code
                 </th>
@@ -10,35 +11,63 @@
                     Student Name
                 </th>
                 <th>
-                    Class Roll
-                </th>
-                <th>
                     Action
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>12007</td>
-                <td>Chakit</td>
-                <td>BCA07</td>
-                <td>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="radiocheck" id="inlineRadio1" value="1" checked>
-                        <label class="form-check-label" for="inlineRadio1">Present</label>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>@obj.StudentCode</td>
+                    <td>@obj.StudentName</td>
+                    <td>
+                        @*<div class="form-check form-check-inline">
+                    <input class="form-check-input AttendanceCode" type="radio" name="radiocheck+@obj.StudentCode" value="1" checked>
+                    <label class="form-check-label">Present</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="radiocheck" id="inlineRadio2" value="2">
-                        <label class="form-check-label" for="inlineRadio2">Absent</label>
+                    <input class="form-check-input AttendanceCode" type="radio" name="radiocheck+@obj.StudentCode" value="2">
+                    <label class="form-check-label">Absent</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="radiocheck" id="inlineRadio3" value="3">
-                        <label class="form-check-label" for="inlineRadio3">Late</label>
-                    </div>
-                        <label class="m-1">Remark</label>
-                        <input type="text" class="m-1"/>
-                </td>
-            </tr>
+                    <input class="form-check-input AttendanceCode" type="radio" name="radiocheck+@obj.StudentCode" value="3">
+                    <label class="form-check-label">Late</label>
+                    </div>*@
+                        @if (obj.CurrentAttendanceCode == null)
+                        {
+                            <button class="btn btn-primary AttedanceAction" onclick="MarkAttendace(@obj.StudentCode,1)">Present</button>
+                            <button class="btn btn-danger  AttedanceAction" onclick="MarkAttendace(@obj.StudentCode,0)">Absent</button>
+                            <button class="btn btn-warning AttedanceAction" onclick="MarkAttendace(@obj.StudentCode,2)">Late</button>
+                            <label class="m-1">Remark</label>
+                            <input type="text" class="m-1" />
+                        }
+                        else
+                        {
+                            if (obj.CurrentAttendanceCode == "1")
+                            {
+                                <div class="alert alert-primary" role="alert">
+                                    Present
+                                </div>
+                            }
+                            else if(obj.CurrentAttendanceCode == "2")
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    Late
+                                </div>
+                            }
+                            else 
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    Absent
+                                </div>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+
         </tbody>
     </table>
 </div>
+<

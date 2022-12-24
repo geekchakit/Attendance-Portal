@@ -1,4 +1,6 @@
-﻿<div class="col-md-12 table-responsive m-0">
+﻿@using Attendance_Portal.ViewModels;
+@model IEnumerable<AttendanceRecord>
+<div class="col-md-12 table-responsive m-0">
     <table class="table table-bordered">
         <thead>
             <tr class="table-light">
@@ -27,29 +29,28 @@
                 <th>
                     Percentage
                 </th>
+                <th>
+                    Action
+                </th>
             </tr>
         </thead>
         <tbody>
-            <tr class="table-info">
-                <td>12007</td>
-                <td>Chakit</td>
-                <td>BCA07</td>
-                <td>10</td>
-                <td>2</td>
-                <td>3</td>
-                <td>15</td>
-                <td>90%</td>
-            </tr>
-            <tr class="table-danger">
-                <td>12001</td>
-                <td>Aditya</td>
-                <td>BCA01</td>
-                <td>2</td>
-                <td>10</td>
-                <td>3</td>
-                <td>15</td>
-                <td>10%</td>
-            </tr>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>@obj.StudentCode</td>
+                    <td>@obj.StudentName</td>
+                    <td>@obj.ClassRoll</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a class="text-center text-success" target=”_blank” href="https://web.whatsapp.com/send?phone={@obj.ParentsNumber}&text=Hi"><i class="bi bi-whatsapp"></i></a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
