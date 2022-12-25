@@ -102,6 +102,12 @@
 	<!--===============================================================================================-->
 	<script src="~/Assets/Login_v3/js/main.js"></script>
 
+	<script>
+		$("#LogInSub").click(function(){
+			var Ecode= $("#ep").val();
+			localStorage.setItem("EmployeeCode", Ecode);
+		})
+	</script>
 </body>
 
 </html>

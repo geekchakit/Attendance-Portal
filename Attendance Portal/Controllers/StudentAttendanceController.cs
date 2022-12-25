@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Data;
 using System.Security.Cryptography;
 
@@ -28,7 +29,20 @@ namespace Attendance_Portal.Controllers
         public IActionResult _SideBar(string EmployeeCode)
         {
             Teacherinfo teacherinfos = _db.Teacherinfo.Where(x => x.EmployeeID == EmployeeCode).FirstOrDefault();
-            return PartialView(teacherinfos);
+            TeacherSidebarVM teacherSidebar = new TeacherSidebarVM();
+            List<SubjectSideBar> SubjectList = new();
+            List<SubjectSideBar> list = new();
+            list = list = JsonConvert.DeserializeObject<List<SubjectSideBar>>(teacherinfos.Subject);
+            foreach (var obj in list)
+            {
+                SubjectSideBar subject = new SubjectSideBar();
+                subject.SubName= obj.SubName;
+                SubjectList.Add(subject);
+            }
+            teacherSidebar.Name = teacherinfos.Name;
+            teacherSidebar.Image = teacherinfos.Image;
+            teacherSidebar.SubjectSideBar = SubjectList;
+            return PartialView(teacherSidebar);
         }
 
 		public IActionResult _studentlist(string? SubjectCode,string? CurrentDate,string TimeSlot)
@@ -41,10 +55,27 @@ namespace Attendance_Portal.Controllers
                 string CurrentAttendanceCode=null;
                 StudentList students = new StudentList();
                 AttendanceSheetBCA_1ST_SEM RecordCurrent = _db.AttendanceSheetBCA_1ST_SEM.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+
                 if (SubjectCode == "AEC1" && RecordCurrent.AEC1!=null)
                 {
                     list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.AEC1);
                 }
+                else if(SubjectCode == "CC1" && RecordCurrent.CC1 != null)
+                {
+                    list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC1);
+                }
+                else if(SubjectCode == "CC2" && RecordCurrent.CC2 != null)
+                {
+                    list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC2);
+                }
+                else
+                {
+                    if(RecordCurrent.GEIC1!= null)
+                    {
+                        list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.GEIC1);
+                    }
+                }
+
                 foreach (var li in list)
                 {
                     if(li.AttedanceDateTime==CurrentDate && li.TimeSlot == TimeSlot)
@@ -103,6 +134,7 @@ namespace Attendance_Portal.Controllers
                     AttendaceData.CC1 = JsonConvert.SerializeObject(list);
                     _db.AttendanceSheetBCA_1ST_SEM.Update(AttendaceData);
                     _db.SaveChanges();
+                    return Json("Sucess");
                 }
                 else if (SubjectCode == "CC2")
                 {
@@ -120,7 +152,7 @@ namespace Attendance_Portal.Controllers
                     AttendaceData.CC2 = JsonConvert.SerializeObject(list);
                     _db.AttendanceSheetBCA_1ST_SEM.Update(AttendaceData);
                     _db.SaveChanges();
-
+                    return Json("Sucess");
                 }
                 else if (SubjectCode == "GEIC1")
                 {
@@ -138,6 +170,7 @@ namespace Attendance_Portal.Controllers
                     AttendaceData.GEIC1 = JsonConvert.SerializeObject(list);
                     _db.AttendanceSheetBCA_1ST_SEM.Update(AttendaceData);
                     _db.SaveChanges();
+                    return Json("Sucess");
                 }
                 else if (SubjectCode == "AEC2")
                 {
@@ -155,6 +188,7 @@ namespace Attendance_Portal.Controllers
                     AttendaceData.AEC2 = JsonConvert.SerializeObject(list);
                     _db.AttendanceSheetBCA_1ST_SEM.Update(AttendaceData);
                     _db.SaveChanges();
+                    return Json("Sucess");
                 }
                 else if (SubjectCode == "CC3")
                 {
@@ -172,6 +206,7 @@ namespace Attendance_Portal.Controllers
                     AttendaceData.CC3 = JsonConvert.SerializeObject(list);
                     _db.AttendanceSheetBCA_1ST_SEM.Update(AttendaceData);
                     _db.SaveChanges();
+                    return Json("Sucess");
                 }
                 else if (SubjectCode == "CC4")
                 {
@@ -189,6 +224,7 @@ namespace Attendance_Portal.Controllers
                     AttendaceData.CC4 = JsonConvert.SerializeObject(list);
                     _db.AttendanceSheetBCA_1ST_SEM.Update(AttendaceData);
                     _db.SaveChanges();
+                    return Json("Sucess");
                 }
                 else
                 {
@@ -203,6 +239,7 @@ namespace Attendance_Portal.Controllers
                     AttendaceData.GEIC2 = JsonConvert.SerializeObject(list);
                     _db.AttendanceSheetBCA_1ST_SEM.Update(AttendaceData);
                     _db.SaveChanges();
+                    return Json("Sucess");
                 }
 
             }
@@ -227,8 +264,9 @@ namespace Attendance_Portal.Controllers
                 
                 _db.AttendanceSheetBCA_1ST_SEM.Add(AttendanceRecord);
                 _db.SaveChanges();
+                return Json("Sucess");
             }
-            return View();
+
         }
         public IActionResult AttendanceRecord()
         {

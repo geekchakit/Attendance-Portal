@@ -1,12 +1,12 @@
 ﻿@using Attendance_Portal.ViewModels;
 @model IEnumerable<StudentList>
 <div class="col-md-12 table-responsive m-0">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-sm">
         <thead>
             <tr>
-                <th>
-                    Student Code
-                </th>
+                @*<th>
+                Student Code
+                </th>*@
                 <th>
                     Student Name
                 </th>
@@ -19,8 +19,10 @@
             @foreach (var obj in Model)
             {
                 <tr>
-                    <td>@obj.StudentCode</td>
-                    <td>@obj.StudentName</td>
+                    @*<td>@obj.StudentCode</td>*@
+                    <td>
+                        @obj.StudentName <span class="badge rounded-pill bg-info">@obj.StudentCode</span>
+                    </td>
                     <td>
                         @*<div class="form-check form-check-inline">
                     <input class="form-check-input AttendanceCode" type="radio" name="radiocheck+@obj.StudentCode" value="1" checked>
@@ -36,11 +38,24 @@
                     </div>*@
                         @if (obj.CurrentAttendanceCode == null)
                         {
-                            <button class="btn btn-primary AttedanceAction" onclick="MarkAttendace(@obj.StudentCode,1)">Present</button>
-                            <button class="btn btn-danger  AttedanceAction" onclick="MarkAttendace(@obj.StudentCode,0)">Absent</button>
-                            <button class="btn btn-warning AttedanceAction" onclick="MarkAttendace(@obj.StudentCode,2)">Late</button>
-                            <label class="m-1">Remark</label>
-                            <input type="text" class="m-1" />
+                            <div class="row">
+                                <div class="col-4">
+                                    <button class="btn btn-primary btn-sm AttedanceAction" onclick="MarkAttendace(@obj.StudentCode,1)">Present</button>
+
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-danger  btn-sm AttedanceAction" onclick="MarkAttendace(@obj.StudentCode,0)">Absent</button>
+
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-warning btn-sm AttedanceAction" onclick="MarkAttendace(@obj.StudentCode,2)">Late</button>
+
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" placeholder="Remark" class="form-control m-1" />
+
+                                </div>
+                            </div>
                         }
                         else
                         {
@@ -50,13 +65,13 @@
                                     Present
                                 </div>
                             }
-                            else if(obj.CurrentAttendanceCode == "2")
+                            else if (obj.CurrentAttendanceCode == "2")
                             {
                                 <div class="alert alert-warning" role="alert">
                                     Late
                                 </div>
                             }
-                            else 
+                            else
                             {
                                 <div class="alert alert-danger" role="alert">
                                     Absent
@@ -70,4 +85,3 @@
         </tbody>
     </table>
 </div>
-<

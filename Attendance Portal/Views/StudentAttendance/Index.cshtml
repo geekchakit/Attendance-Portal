@@ -79,9 +79,8 @@
 			var TimeSlot = $("#TimeSlot").val();
 			$("#_studentlist").load("/StudentAttendance/_studentlist?SubjectCode=" + SubjectCode + "&CurrentDate=" + CurrentDate + "&TimeSlot=" + TimeSlot);
 		})
-		var EmployeeCode = @ViewBag.EmployeeCode;
-		localStorage.setItem("EmployeeCode",EmployeeCode);
-		$("#_SideBar").load("_SideBar?EmployeeCode=" + EmployeeCode);
+
+		$("#_SideBar").load("_SideBar?EmployeeCode=" + localStorage.getItem("EmployeeCode"));
 		document.getElementById('datetime').value = new Date().toISOString().slice(0, 10);
 	})
 </script>
