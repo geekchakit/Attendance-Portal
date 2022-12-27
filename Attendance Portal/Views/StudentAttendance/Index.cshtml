@@ -41,11 +41,11 @@
 			<div class="col-md-2">
 				<span class="badge bg-primary">Subject</span>
 				<select class="form-select m-1" id="Subject">
-					<option value="">Select</option>
+					@*<option value="">Select</option>
 					<option value="AEC1">Environmental Science</option>
 					<option value="CC1">Digital Logic</option>
 					<option value="CC2">Programming using C</option>
-					<option value="GEIC1">Principles of Management</option>
+					<option value="GEIC1">Principles of Management</option>*@
 				</select>
 			</div>
 			<div class="col-md-3">
@@ -53,14 +53,7 @@
 				<input type="date" id="datetime" class="form-control m-1" />
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<button class="btn btn-primary m-1" id="MarkHoliday">Mark Holiday</button>
-			</div>
-			<div class="col-md-6 ms-auto">
-				<button class="btn btn-success float-end m-1" id="MarkAttendance">Mark Attendance</button>
-			</div>
-		</div>
+		
 		<div class="m-2" id="_studentlist">
 		</div>
 	</div>
@@ -73,6 +66,10 @@
 			
 <script>
 	$(document).ready(function () {
+		$("#Semester").change(function(){
+			BindDdl($("#Subject"), null, 'GetSubject?SemCode=' + $("#Semester").val() + "&CourseCode=" + $("#Course").val());
+		})
+
 		$("#Subject").change(function () {
 			var SubjectCode = $("#Subject").val();
 			var CurrentDate = $("#datetime").val();

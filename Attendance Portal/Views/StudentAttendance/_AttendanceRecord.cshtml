@@ -1,19 +1,19 @@
 ﻿@using Attendance_Portal.ViewModels;
 @model IEnumerable<AttendanceRecord>
 <div class="col-md-12 table-responsive m-0">
-    <table class="table table-bordered">
+    <table class="table table-bordered table-sm">
         <thead>
             <tr class="table-light">
 
-                <th>
+                @*<th>
                     Student Code
-                </th>
+                </th>*@
                 <th>
                     Student Name
                 </th>
-                <th>
+                @*<th>
                     Class Roll
-                </th>
+                </th>*@
                 <th>
                     Present
                 </th>
@@ -38,16 +38,16 @@
             @foreach (var obj in Model)
             {
                 <tr>
-                    <td>@obj.StudentCode</td>
-                    <td>@obj.StudentName</td>
-                    <td>@obj.ClassRoll</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    @*<td>@obj.StudentCode</td>*@
+                    <td>@obj.StudentName <span class="badge rounded-pill bg-info">@obj.StudentCode</span></td>
+                    @*<td>@obj.ClassRoll</td>*@
+                    <td>@obj.Present</td>
+                    <td>@obj.Absent</td>
+                    <td>@obj.Late</td>
+                    <td>@obj.TotalClass</td>
+                    <td>@obj.Percentage%</td>
                     <td>
-                        <a class="text-center text-success" target=”_blank” href="https://web.whatsapp.com/send?phone={@obj.ParentsNumber}&text=Hi"><i class="bi bi-whatsapp"></i></a>
+                        <a class="text-center text-success" target=”_blank” href="https://web.whatsapp.com/send?phone={@obj.ParentsNumber}&text=Good Morning/Afternoon sir out of @obj.TotalClass your ward @obj.StudentName attained @obj.Present classes"><i class="bi bi-whatsapp"></i></a>
                     </td>
                 </tr>
             }

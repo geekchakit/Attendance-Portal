@@ -61,16 +61,66 @@
             var Subject = $("#Subject").val();
             var datetime = $("#datetime").val();
             var TimeSlot = $("#TimeSlot").val();
-
+            var Remarks = $("#Remarks").val();
+            
             $.ajax({
                 url: "MarkAttendance",
-                data: { "CourseCode": Course, "TimeSlot": TimeSlot, "Semester": Semester, "SubjectCode": Subject, "AttendaceDateTime": datetime, "StudentCode": StudentCode, "AttendanceCode": AttednaceCode },
+                data: { "CourseCode": Course, "TimeSlot": TimeSlot, "Semester": Semester, "SubjectCode": Subject, "AttendaceDateTime": datetime, "StudentCode": StudentCode, "AttendanceCode": AttednaceCode,"Remarks":Remarks },
                 success: function (result) {
                     var SubjectCode = $("#Subject").val();
                     var CurrentDate = $("#datetime").val();
                     var TimeSlot = $("#TimeSlot").val();
-                    $("#_studentlist").load("/StudentAttendance/_studentlist?SubjectCode=" + SubjectCode + "&CurrentDate=" + CurrentDate + "&TimeSlot=" + TimeSlot);
+                    $("#_studentlist").load("/StudentAttendance/_studentlist?SubjectCode=" + SubjectCode + "&CurrentDate=" + CurrentDate + "&TimeSlot=" + TimeSlot );
                 }
+            });
+        }
+
+        async function BindDdl(ddl, selectedId, url) {
+
+            ddl.empty().append('<option selected="selected" value="" disabled="disabled">Loading...</option>');
+            var list = await GetDdl(url);
+            if (list.length != 0 || !jQuery.isEmptyObject(list)) {
+                ddl.empty().append('<option value="" disabled="disabled" selected="selected" hidden="">-Select-</option>');
+                $.each(list, function (index, c) {
+                    if (c.value == selectedId) {
+                        ddl.append('<option value="' + c.value + '" selected>' + c.text + '</option>');
+                    }
+                    else {
+                        ddl.append('<option value="' + c.value + '">' + c.text + '</option>');
+                    }
+                });
+            }
+            else {
+                ddl.empty().append('<option selected="selected" value="" disabled="disabled">-Select-</option>');
+            }
+        }
+
+        async function BindDdlCheck(ddl, selectedId, url) {
+
+            ddl.empty().append('<option selected="selected" value="" disabled="disabled">Loading...</option>');
+            var list = await GetDdl(url);
+            if (list.length != 0 || !jQuery.isEmptyObject(list)) {
+                ddl.empty().append('<option value="" disabled="disabled" selected="selected" hidden="">-Select-</option>');
+                ddl.append('<option value="0">-ALL-</option>');
+                $.each(list, function (index, c) {
+                    if (c.value == selectedId) {
+                        ddl.append('<option value="' + c.value + '" selected>' + c.text + '</option>');
+                    }
+                    else {
+                        ddl.append('<option value="' + c.value + '">' + c.text + '</option>');
+                    }
+                });
+            }
+            else {
+                ddl.empty().append('<option selected="selected" value="" disabled="disabled">-Select-</option>');
+            }
+        }
+
+        async function GetDdl(url) {
+            return $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json'
             });
         }
     </script>

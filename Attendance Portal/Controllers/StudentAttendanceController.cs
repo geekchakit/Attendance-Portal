@@ -20,7 +20,7 @@ namespace Attendance_Portal.Controllers
         {
             _db = db;
         }
-             
+
         public IActionResult Index(string EmployeeId)
         {
             ViewBag.EmployeeCode = EmployeeId;
@@ -36,7 +36,7 @@ namespace Attendance_Portal.Controllers
             foreach (var obj in list)
             {
                 SubjectSideBar subject = new SubjectSideBar();
-                subject.SubName= obj.SubName;
+                subject.SubName = obj.SubName;
                 SubjectList.Add(subject);
             }
             teacherSidebar.Name = teacherinfos.Name;
@@ -45,40 +45,52 @@ namespace Attendance_Portal.Controllers
             return PartialView(teacherSidebar);
         }
 
-		public IActionResult _studentlist(string? SubjectCode,string? CurrentDate,string TimeSlot)
-        {           
+        public IActionResult _studentlist(string? SubjectCode, string? CurrentDate, string TimeSlot)
+        {
             List<StudentsInfo> StudentsInfo = _db.StudentsInfo.ToList();
             List<StudentList> StudentList = new();
             foreach (var obj in StudentsInfo)
             {
                 List<AttendanceJsonString> list = new();
-                string CurrentAttendanceCode=null;
+                string CurrentAttendanceCode = null;
                 StudentList students = new StudentList();
                 AttendanceSheetBCA_1ST_SEM RecordCurrent = _db.AttendanceSheetBCA_1ST_SEM.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
 
-                if (SubjectCode == "AEC1" && RecordCurrent.AEC1!=null)
+                if (SubjectCode == "AEC1")
                 {
-                    list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.AEC1);
+                    if (RecordCurrent.AEC1 != null)
+                    {
+                        list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.AEC1);
+                    }
                 }
-                else if(SubjectCode == "CC1" && RecordCurrent.CC1 != null)
+                else if (SubjectCode == "CC1")
                 {
-                    list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC1);
+                    if (RecordCurrent.CC1 != null)
+                    {
+                        list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC1);
+                    };
                 }
-                else if(SubjectCode == "CC2" && RecordCurrent.CC2 != null)
+                else if (SubjectCode == "CC2")
                 {
-                    list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC2);
+                    if (RecordCurrent.CC2 != null)
+                    {
+                        list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC2);
+                    }
                 }
-                else
+                else if (SubjectCode == "GEIC1")
                 {
-                    if(RecordCurrent.GEIC1!= null)
+                    if (RecordCurrent.GEIC1 != null)
                     {
                         list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.GEIC1);
                     }
                 }
-
+                else
+                {
+                    list = null;
+                }
                 foreach (var li in list)
                 {
-                    if(li.AttedanceDateTime==CurrentDate && li.TimeSlot == TimeSlot)
+                    if (li.AttedanceDateTime == CurrentDate && li.TimeSlot == TimeSlot)
                     {
                         CurrentAttendanceCode = li.AttendanceCode;
                         break;
@@ -93,7 +105,7 @@ namespace Attendance_Portal.Controllers
             return PartialView(StudentList);
         }
 
-        public IActionResult MarkAttendance(int StudentCode,string TimeSlot, string Semester,string CourseCode, string SubjectCode, string AttendaceDateTime, string AttendanceCode)
+        public IActionResult MarkAttendance(int StudentCode, string Remarks, string TimeSlot, string Semester, string CourseCode, string SubjectCode, string AttendaceDateTime, string AttendanceCode)
         {
             AttendanceSheetBCA_1ST_SEM? AttendaceData = _db.AttendanceSheetBCA_1ST_SEM.Where(x => x.StudentCode == StudentCode).First();
             List<AttendanceJsonString>? list = new();
@@ -110,7 +122,8 @@ namespace Attendance_Portal.Controllers
                     {
                         AttendanceCode = AttendanceCode,
                         AttedanceDateTime = AttendaceDateTime,
-                        TimeSlot=TimeSlot
+                        TimeSlot = TimeSlot,
+                        Remarks = Remarks
                     };
                     list.Add(NewData);
                     AttendaceData.AEC1 = JsonConvert.SerializeObject(list);
@@ -128,7 +141,9 @@ namespace Attendance_Portal.Controllers
                     {
                         AttendanceCode = AttendanceCode,
                         AttedanceDateTime = AttendaceDateTime,
-                        TimeSlot = TimeSlot
+                        TimeSlot = TimeSlot,
+                        Remarks = Remarks
+
                     };
                     list.Add(NewData);
                     AttendaceData.CC1 = JsonConvert.SerializeObject(list);
@@ -146,7 +161,8 @@ namespace Attendance_Portal.Controllers
                     {
                         AttendanceCode = AttendanceCode,
                         AttedanceDateTime = AttendaceDateTime,
-                        TimeSlot = TimeSlot
+                        TimeSlot = TimeSlot,
+                        Remarks = Remarks
                     };
                     list.Add(NewData);
                     AttendaceData.CC2 = JsonConvert.SerializeObject(list);
@@ -164,7 +180,8 @@ namespace Attendance_Portal.Controllers
                     {
                         AttendanceCode = AttendanceCode,
                         AttedanceDateTime = AttendaceDateTime,
-                        TimeSlot= TimeSlot
+                        TimeSlot = TimeSlot,
+                        Remarks = Remarks
                     };
                     list.Add(NewData);
                     AttendaceData.GEIC1 = JsonConvert.SerializeObject(list);
@@ -182,7 +199,8 @@ namespace Attendance_Portal.Controllers
                     {
                         AttendanceCode = AttendanceCode,
                         AttedanceDateTime = AttendaceDateTime,
-                        TimeSlot = TimeSlot
+                        TimeSlot = TimeSlot,
+                        Remarks = Remarks
                     };
                     list.Add(NewData);
                     AttendaceData.AEC2 = JsonConvert.SerializeObject(list);
@@ -200,7 +218,8 @@ namespace Attendance_Portal.Controllers
                     {
                         AttendanceCode = AttendanceCode,
                         AttedanceDateTime = AttendaceDateTime,
-                        TimeSlot = TimeSlot
+                        TimeSlot = TimeSlot,
+                        Remarks = Remarks
                     };
                     list.Add(NewData);
                     AttendaceData.CC3 = JsonConvert.SerializeObject(list);
@@ -218,7 +237,8 @@ namespace Attendance_Portal.Controllers
                     {
                         AttendanceCode = AttendanceCode,
                         AttedanceDateTime = AttendaceDateTime,
-                        TimeSlot = TimeSlot
+                        TimeSlot = TimeSlot,
+                        Remarks = Remarks
                     };
                     list.Add(NewData);
                     AttendaceData.CC4 = JsonConvert.SerializeObject(list);
@@ -233,7 +253,8 @@ namespace Attendance_Portal.Controllers
                     {
                         AttendanceCode = AttendanceCode,
                         AttedanceDateTime = AttendaceDateTime,
-                        TimeSlot = TimeSlot
+                        TimeSlot = TimeSlot,
+                        Remarks = Remarks
                     };
                     list.Add(NewData);
                     AttendaceData.GEIC2 = JsonConvert.SerializeObject(list);
@@ -251,17 +272,19 @@ namespace Attendance_Portal.Controllers
                 {
                     AttendanceCode = AttendanceCode,
                     AttedanceDateTime = AttendaceDateTime,
+                    TimeSlot = TimeSlot,
+                    Remarks = Remarks
                 };
                 list.Add(NewData);
                 if (CourseCode == "AEC1") { AttendanceRecord.AEC1 = JsonConvert.SerializeObject(list); }
-                else if (CourseCode == "CC1") {AttendanceRecord.CC1 = JsonConvert.SerializeObject(list); }
-                else if (CourseCode == "CC2") {AttendanceRecord.CC2 = JsonConvert.SerializeObject(list); }
-                else if (CourseCode == "GEIC1") {AttendanceRecord.GEIC1 = JsonConvert.SerializeObject(list); }
-                else if (CourseCode == "AEC2") {AttendanceRecord.AEC2 = JsonConvert.SerializeObject(list); }
-                else if (CourseCode == "CC3") {AttendanceRecord.CC3 = JsonConvert.SerializeObject(list); }
-                else if (CourseCode == "CC4") {AttendanceRecord.CC4 = JsonConvert.SerializeObject(list); }
+                else if (CourseCode == "CC1") { AttendanceRecord.CC1 = JsonConvert.SerializeObject(list); }
+                else if (CourseCode == "CC2") { AttendanceRecord.CC2 = JsonConvert.SerializeObject(list); }
+                else if (CourseCode == "GEIC1") { AttendanceRecord.GEIC1 = JsonConvert.SerializeObject(list); }
+                else if (CourseCode == "AEC2") { AttendanceRecord.AEC2 = JsonConvert.SerializeObject(list); }
+                else if (CourseCode == "CC3") { AttendanceRecord.CC3 = JsonConvert.SerializeObject(list); }
+                else if (CourseCode == "CC4") { AttendanceRecord.CC4 = JsonConvert.SerializeObject(list); }
                 else { AttendanceRecord.GEIC2 = JsonConvert.SerializeObject(list); }
-                
+
                 _db.AttendanceSheetBCA_1ST_SEM.Add(AttendanceRecord);
                 _db.SaveChanges();
                 return Json("Sucess");
@@ -274,17 +297,109 @@ namespace Attendance_Portal.Controllers
             return View();
         }
 
-        public IActionResult _AttendanceRecord()
+        public IActionResult _AttendanceRecord(string CourseCode, int SemCode, string StartDate, string EndDate, string SubjectCheck)
         {
-            List<StudentsInfo> StudentsInfo = _db.StudentsInfo.ToList();
-            List<AttendanceRecord> AttendanceRecordList= new();
-            foreach (var obj in StudentsInfo)
+            List<AttendanceSheetBCA_1ST_SEM> AttendanceSheet = _db.AttendanceSheetBCA_1ST_SEM.ToList();
+            List<StudentsInfo> studentsInfos = _db.StudentsInfo.ToList();
+            List<AttendanceRecord> AttendanceRecordList = new();
+            List<AttendanceJsonString> jsonlist = new();
+            foreach (var obj in studentsInfos)
             {
+                int Present = 0;
+                int Absent = 0;
+                int Late = 0;
+                int TotalClass = 0;
+                if (SubjectCheck == "0")
+                {
+                    List<Subject> Subject = _db.Subject.Where(x => x.SemCode == SemCode && x.CourseCode == CourseCode).ToList();
+                    foreach (var ob in Subject)
+                    {
+                        AttendanceSheetBCA_1ST_SEM Sheet = AttendanceSheet.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                        if(ob.SubCode== "AEC1" && Sheet.AEC1!=null) {jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.AEC1);}
+                        else if (ob.SubCode == "CC1" && Sheet.CC1 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC1);}
+                        else if (ob.SubCode == "GEIC1" && Sheet.GEIC1 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.GEIC1);}
+                        else if (ob.SubCode == "CC2" && Sheet.CC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC2);}
+                        else if (ob.SubCode == "AEC2" && Sheet.AEC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.AEC2);}
+                        else if (ob.SubCode == "CC3" && Sheet.CC3 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC3);}
+                        else if (ob.SubCode == "CC4" && Sheet.CC4 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC4);}
+                        else { if (Sheet.GEIC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.GEIC2); } else { jsonlist = null; } }
+
+                        if(jsonlist!=null)
+                        {
+                            foreach (var js in jsonlist)
+                            {
+                                var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                {
+                                    if (js.AttendanceCode == "1")
+                                    {
+                                        Present++;
+                                    }
+                                    else if (js.AttendanceCode == "2")
+                                    {
+                                        Absent++;
+                                    }
+                                    else
+                                    {
+                                        Late++;
+                                    }
+                                    TotalClass++;
+                                }
+
+                            }
+                        }
+                       
+                    }
+
+                }
+                else
+                {
+                    AttendanceSheetBCA_1ST_SEM Sheet = AttendanceSheet.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                    if (SubjectCheck == "AEC1" && Sheet.AEC1 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.AEC1); }
+                    else if (SubjectCheck == "CC1" && Sheet.CC1 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC1); }
+                    else if (SubjectCheck == "GEIC1" && Sheet.GEIC1 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.GEIC1); }
+                    else if (SubjectCheck == "CC2" && Sheet.CC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC2); }
+                    else if (SubjectCheck == "AEC2" && Sheet.AEC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.AEC2); }
+                    else if (SubjectCheck == "CC3" && Sheet.CC3 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC3); }
+                    else if (SubjectCheck == "CC4" && Sheet.CC4 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC4); }
+                    else { if (Sheet.GEIC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.GEIC2); } else { jsonlist = null; } }
+
+                    if (jsonlist != null)
+                    {
+                        foreach (var js in jsonlist)
+                        {
+                            var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                            if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                            {
+                                if (js.AttendanceCode == "1")
+                                {
+                                    Present++;
+                                }
+                                else if (js.AttendanceCode == "2")
+                                {
+                                    Absent++;
+                                }
+                                else
+                                {
+                                    Late++;
+                                }
+                                TotalClass++;
+                            }
+
+                        }
+                    }
+                }
+
                 AttendanceRecord AttendanceRecord = new AttendanceRecord();
                 AttendanceRecord.StudentName = obj.StudentName;
                 AttendanceRecord.StudentCode = obj.StudentCode;
                 AttendanceRecord.ParentsNumber = obj.ParentsMobileno;
-                AttendanceRecord.ClassRoll = obj.ClassRollno;
+                AttendanceRecord.Present = Present;
+                AttendanceRecord.Absent = Absent;
+                AttendanceRecord.Late = Late;
+                AttendanceRecord.TotalClass = TotalClass;
+                if (TotalClass != 0) { AttendanceRecord.Percentage = Present / TotalClass * 100; }
+                else { AttendanceRecord.Percentage = 0; }
                 AttendanceRecordList.Add(AttendanceRecord);
             }
             return PartialView(AttendanceRecordList);
@@ -292,17 +407,17 @@ namespace Attendance_Portal.Controllers
 
         #region Get Exams List
 
-        public async Task<SelectList> GetSubject(short SemCode,string CourseCode)
+        public async Task<SelectList> GetSubject(short SemCode, string CourseCode)
         {
-            var fun = _db.Subject.Where(x=>x.SemesterCode==SemCode && x.CourseCode==CourseCode).ToList();
+            var fun = _db.Subject.Where(x => x.SemCode == SemCode && x.CourseCode == CourseCode).ToList();
             List<SelectListItem> list = new List<SelectListItem>();
 
             foreach (var row in fun)
             {
                 list.Add(new SelectListItem()
                 {
-                    Text = row.SubjectName,
-                    Value = row.SubjectCode.ToString()
+                    Text = row.SubName,
+                    Value = row.SubCode.ToString()
                 });
             }
 

@@ -5,9 +5,9 @@ namespace Attendance_Portal.Models
     public class Subject
     {
         [Key]
-        public short SubjectCode { get; set; }
-        public string SubjectName { get; set; }
-        public short SemesterCode { get; set; }
+        public string SubCode { get; set; }
+        public string SubName { get; set; }
+        public int SemCode { get; set; }
         public string CourseCode { get; set; }
     }
 }

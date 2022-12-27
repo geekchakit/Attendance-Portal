@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-3">
                 <span class="badge rounded-pill bg-info">Department</span>
-                <select class="form-select m-1">
+                <select class="form-select m-1" id="CourseCheck">
                     <option value="">Select</option>
                     <option value="1">BCA</option>
                     <option value="2">BBA</option>
@@ -38,10 +38,7 @@
             </div>
             <div class="col-md-2">
                 <span class="badge rounded-pill bg-primary">Subject</span>
-                <select class="form-select m-1">
-                    <option value="">Select</option>
-                    <option value="1">C</option>
-                    <option value="2">JAVA</option>
+                <select class="form-select m-1" id="SubjectCheck">
                 </select>
             </div>
         </div>
@@ -57,7 +54,11 @@
 <script>
     $(document).ready(function () {
         $("#SemesterCheck").change(function () {
-            $("#_AttendanceRecord").load("/StudentAttendance/_AttendanceRecord");
+            BindDdlCheck($("#SubjectCheck"), null, 'GetSubject?SemCode=' + $("#SemesterCheck").val() + "&CourseCode=" + $("#CourseCheck").val());
+		})
+
+        $("#SubjectCheck").change(function(){
+            $("#_AttendanceRecord").load("/StudentAttendance/_AttendanceRecord?CourseCode=" + $("#CourseCheck").val() + "&SemCode=" + $("#SemesterCheck").val() + "&StartDate=" + $("#StartDate").val() + "&EndDate=" + $("#StartDate").val() + "&SubjectCheck=" + $("#SubjectCheck").val());
         })
         var EpCode = localStorage.getItem("EmployeeCode");
         $("#_SideBar").load("_SideBar?EmployeeCode=" + EpCode);
