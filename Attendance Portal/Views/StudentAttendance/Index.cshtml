@@ -74,7 +74,9 @@
 			var SubjectCode = $("#Subject").val();
 			var CurrentDate = $("#datetime").val();
 			var TimeSlot = $("#TimeSlot").val();
-			$("#_studentlist").load("/StudentAttendance/_studentlist?SubjectCode=" + SubjectCode + "&CurrentDate=" + CurrentDate + "&TimeSlot=" + TimeSlot);
+			var CourseCode = $("#Course").val();
+			var SemCode = $("#Semester").val();
+			$("#_studentlist").load("/StudentAttendance/_studentlist?SubjectCode=" + SubjectCode + "&CurrentDate=" + CurrentDate + "&TimeSlot=" + TimeSlot + "&CourseCode="+CourseCode + "&SemCode="+SemCode);
 		})
 
 		$("#_SideBar").load("_SideBar?EmployeeCode=" + localStorage.getItem("EmployeeCode"));

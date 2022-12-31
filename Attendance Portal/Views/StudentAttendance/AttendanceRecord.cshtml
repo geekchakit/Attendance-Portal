@@ -58,7 +58,7 @@
 		})
 
         $("#SubjectCheck").change(function(){
-            $("#_AttendanceRecord").load("/StudentAttendance/_AttendanceRecord?CourseCode=" + $("#CourseCheck").val() + "&SemCode=" + $("#SemesterCheck").val() + "&StartDate=" + $("#StartDate").val() + "&EndDate=" + $("#StartDate").val() + "&SubjectCheck=" + $("#SubjectCheck").val());
+            $("#_AttendanceRecord").load("/StudentAttendance/_AttendanceRecord?CourseCode=" + $("#CourseCheck").val() + "&SemCode=" + $("#SemesterCheck").val() + "&StartDate=" + $("#StartDate").val() + "&EndDate=" + $("#EndDate").val() + "&SubjectCheck=" + $("#SubjectCheck").val());
         })
         var EpCode = localStorage.getItem("EmployeeCode");
         $("#_SideBar").load("_SideBar?EmployeeCode=" + EpCode);
