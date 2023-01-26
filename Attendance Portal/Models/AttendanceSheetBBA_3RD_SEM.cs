@@ -10,7 +10,8 @@ namespace Attendance_Portal.Models
         public string? B301 { get; set; }
         public string? B302 { get; set; }
         public string? B303 { get; set; }
-        //public string? GEIC1 { get; set; }
+        public string? B304 { get; set; }
+        public string? B305 { get; set; }
 
     }
 }
