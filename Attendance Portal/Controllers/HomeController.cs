@@ -44,7 +44,10 @@ namespace Attendance_Portal.Controllers
                 return Redirect(ReturnUrl);
             }
             else
+            {
+                TempData["Auth"] = "Wrong Credentials";
                 return View();
+            }
         }
 
         public async Task<IActionResult> Logout()

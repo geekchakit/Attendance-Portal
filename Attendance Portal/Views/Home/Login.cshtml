@@ -3,7 +3,7 @@
 }
 <!DOCTYPE html>
 <html lang="en">
-
+	 
 <head>
 	<title>Login V3</title>
 	<meta charset="UTF-8">
@@ -71,7 +71,12 @@
 							Login
 						</button>
 					</div>
-
+					@if(TempData["Auth"]!=null)
+					{
+						<div class="alert alert-danger m-1" role="alert">
+							Invalid User Name or Password.
+						</div>
+					}
 					<div class="text-center p-t-90" >
 						<a class="txt1" href="#" style="color:black;">
 							Forgot Password?
@@ -81,7 +86,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<div id="dropDownSelect1"></div>
 

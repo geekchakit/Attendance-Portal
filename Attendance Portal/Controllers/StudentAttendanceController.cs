@@ -23,6 +23,14 @@ namespace Attendance_Portal.Controllers
 
         public IActionResult Index(string EmployeeId)
         {
+            //List<int> studentid = _db.StudentsInfo.Where(x => x.Year == 3 && x.Course == "2").Select(s => s.StudentCode).ToList();
+            //foreach(var id in studentid)
+            //{
+            //    AttendanceSheetBBA_6TH_SEM Sheet = new AttendanceSheetBBA_6TH_SEM();
+            //    Sheet.StudentCode = id;
+            //    _db.AttendanceSheetBBA_6TH_SEM.Add(Sheet);
+            //    _db.SaveChanges();
+            //}
             ViewBag.EmployeeCode = EmployeeId;
             return View();
         }
@@ -180,6 +188,185 @@ namespace Attendance_Portal.Controllers
                     }
                 }
 
+                //BCA STUDENT LIST Addd 2,3,6
+                else if (SemCode == "2")
+                {
+                    foreach (var obj in StudentsInfo)
+                    {
+                        List<AttendanceJsonString> list = new();
+                        string CurrentAttendanceCode = null;
+                        StudentList students = new StudentList();
+                        AttendanceSheetBCA_2ND_SEM RecordCurrent = _db.AttendanceSheetBCA_2ND_SEM.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+
+                        if (SubjectCode == "AEC2")
+                        {
+                            if (RecordCurrent.AEC2 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.AEC2);
+                            }
+                        }
+                        else if (SubjectCode == "CC3")
+                        {
+                            if (RecordCurrent.CC3 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC3);
+                            };
+                        }
+                        else if (SubjectCode == "CC4")
+                        {
+                            if (RecordCurrent.CC4 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC4);
+                            }
+                        }
+                        else if (SubjectCode == "GEIC2")
+                        {
+                            if (RecordCurrent.GEIC2 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.GEIC2);
+                            }
+                        }
+                        else
+                        {
+                            list = null;
+                        }
+                        foreach (var li in list)
+                        {
+                            if (li.AttedanceDateTime == CurrentDate && li.TimeSlot == TimeSlot)
+                            {
+                                CurrentAttendanceCode = li.AttendanceCode;
+                                break;
+                            }
+                        }
+                        students.StudentName = obj.StudentName;
+                        students.StudentCode = obj.StudentCode;
+                        students.ParentsNumber = obj.ParentsMobileno;
+                        students.CurrentAttendanceCode = CurrentAttendanceCode;
+                        StudentList.Add(students);
+                    }
+                }
+
+                else if (SemCode == "4")
+                {
+                    foreach (var obj in StudentsInfo)
+                    {
+                        List<AttendanceJsonString> list = new();
+                        string CurrentAttendanceCode = null;
+                        StudentList students = new StudentList();
+                        AttendanceSheetBCA_4TH_SEM RecordCurrent = _db.AttendanceSheetBCA_4TH_SEM.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+
+                        if (SubjectCode == "CC8")
+                        {
+                            if (RecordCurrent.CC8 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC8);
+                            }
+                        }
+                        else if (SubjectCode == "CC9")
+                        {
+                            if (RecordCurrent.CC9 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC9);
+                            };
+                        }
+                        else if (SubjectCode == "CC10")
+                        {
+                            if (RecordCurrent.CC10 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC10);
+                            }
+                        }
+                        else if (SubjectCode == "SEC2")
+                        {
+                            if (RecordCurrent.SEC2 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.SEC2);
+                            }
+                        }
+                        else if (SubjectCode == "GEIC4")
+                        {
+                            if (RecordCurrent.GEIC4 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.GEIC4);
+                            }
+                        }
+                        else
+                        {
+                            list = null;
+                        }
+                        foreach (var li in list)
+                        {
+                            if (li.AttedanceDateTime == CurrentDate && li.TimeSlot == TimeSlot)
+                            {
+                                CurrentAttendanceCode = li.AttendanceCode;
+                                break;
+                            }
+                        }
+                        students.StudentName = obj.StudentName;
+                        students.StudentCode = obj.StudentCode;
+                        students.ParentsNumber = obj.ParentsMobileno;
+                        students.CurrentAttendanceCode = CurrentAttendanceCode;
+                        StudentList.Add(students);
+                    }
+                }
+
+                else if (SemCode == "6")
+                {
+                    foreach (var obj in StudentsInfo)
+                    {
+                        List<AttendanceJsonString> list = new();
+                        string CurrentAttendanceCode = null;
+                        StudentList students = new StudentList();
+                        AttendanceSheetBCA_6TH_SEM RecordCurrent = _db.AttendanceSheetBCA_6TH_SEM.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+
+                        if (SubjectCode == "CC13")
+                        {
+                            if (RecordCurrent.CC13 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC13);
+                            }
+                        }
+                        else if (SubjectCode == "CC14")
+                        {
+                            if (RecordCurrent.CC14 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.CC14);
+                            };
+                        }
+                        else if (SubjectCode == "DSE3")
+                        {
+                            if (RecordCurrent.DSEC3 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.DSEC3);
+                            }
+                        }
+                        else if (SubjectCode == "DSE4")
+                        {
+                            if (RecordCurrent.DSEC4 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.DSEC4);
+                            }
+                        }
+                        else
+                        {
+                            list = null;
+                        }
+                        foreach (var li in list)
+                        {
+                            if (li.AttedanceDateTime == CurrentDate && li.TimeSlot == TimeSlot)
+                            {
+                                CurrentAttendanceCode = li.AttendanceCode;
+                                break;
+                            }
+                        }
+                        students.StudentName = obj.StudentName;
+                        students.StudentCode = obj.StudentCode;
+                        students.ParentsNumber = obj.ParentsMobileno;
+                        students.CurrentAttendanceCode = CurrentAttendanceCode;
+                        StudentList.Add(students);
+                    }
+                }
+                //end
                 else
                 {
                     foreach (var obj in StudentsInfo)
@@ -237,6 +424,7 @@ namespace Attendance_Portal.Controllers
                     }
                 }
             }
+
             else
             {
                 if (SemCode == "1")
@@ -359,6 +547,198 @@ namespace Attendance_Portal.Controllers
                         StudentList.Add(students);
                     }
                 }
+                //BBA 2,4,6 SEM ADD
+                else if (SemCode == "2")
+                {
+                    foreach (var obj in StudentsInfo)
+                    {
+                        List<AttendanceJsonString> list = new();
+                        string CurrentAttendanceCode = null;
+                        StudentList students = new StudentList();
+                        AttendanceSheetBBA_2ND_SEM RecordCurrent = _db.AttendanceSheetBBA_2ND_SEM.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+
+                        if (SubjectCode == "201")
+                        {
+                            if (RecordCurrent.B201 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B201);
+                            }
+                        }
+                        else if (SubjectCode == "202")
+                        {
+                            if (RecordCurrent.B202 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B202);
+                            };
+                        }
+                        else if (SubjectCode == "203")
+                        {
+                            if (RecordCurrent.B203 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B203);
+                            }
+                        }
+                        else if (SubjectCode == "204")
+                        {
+                            if (RecordCurrent.B204 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B204);
+                            }
+                        }
+                        else
+                        {
+                            list = null;
+                        }
+                        foreach (var li in list)
+                        {
+                            if (li.AttedanceDateTime == CurrentDate && li.TimeSlot == TimeSlot)
+                            {
+                                CurrentAttendanceCode = li.AttendanceCode;
+                                break;
+                            }
+                        }
+                        students.StudentName = obj.StudentName;
+                        students.StudentCode = obj.StudentCode;
+                        students.ParentsNumber = obj.ParentsMobileno;
+                        students.CurrentAttendanceCode = CurrentAttendanceCode;
+                        StudentList.Add(students);
+                    }
+                }
+                else if (SemCode == "4")
+                {
+                    foreach (var obj in StudentsInfo)
+                    {
+                        List<AttendanceJsonString> list = new();
+                        string CurrentAttendanceCode = null;
+                        StudentList students = new StudentList();
+                        AttendanceSheetBBA_4TH_SEM RecordCurrent = _db.AttendanceSheetBBA_4TH_SEM.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+
+                        if (SubjectCode == "401")
+                        {
+                            if (RecordCurrent.B401 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B401);
+                            }
+                        }
+                        else if (SubjectCode == "402")
+                        {
+                            if (RecordCurrent.B402 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B402);
+                            };
+                        }
+                        else if (SubjectCode == "403")
+                        {
+                            if (RecordCurrent.B403 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B403);
+                            }
+                        }
+                        else if (SubjectCode == "404")
+                        {
+                            if (RecordCurrent.B404 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B404);
+                            }
+                        }
+                        else if (SubjectCode == "405")
+                        {
+                            if (RecordCurrent.B405 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B405);
+                            }
+                        }
+
+                        else
+                        {
+                            list = null;
+                        }
+                        foreach (var li in list)
+                        {
+                            if (li.AttedanceDateTime == CurrentDate && li.TimeSlot == TimeSlot)
+                            {
+                                CurrentAttendanceCode = li.AttendanceCode;
+                                break;
+                            }
+                        }
+                        students.StudentName = obj.StudentName;
+                        students.StudentCode = obj.StudentCode;
+                        students.ParentsNumber = obj.ParentsMobileno;
+                        students.CurrentAttendanceCode = CurrentAttendanceCode;
+                        StudentList.Add(students);
+                    }
+                }
+                else if (SemCode == "6")
+                {
+                    foreach (var obj in StudentsInfo)
+                    {
+                        List<AttendanceJsonString> list = new();
+                        string CurrentAttendanceCode = null;
+                        StudentList students = new StudentList();
+                        AttendanceSheetBBA_6TH_SEM RecordCurrent = _db.AttendanceSheetBBA_6TH_SEM.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+
+                        if (SubjectCode == "601")
+                        {
+                            if (RecordCurrent.B601 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B601);
+                            }
+                        }
+                        else if (SubjectCode == "602")
+                        {
+                            if (RecordCurrent.B602 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B602);
+                            };
+                        }
+                        else if (SubjectCode == "603")
+                        {
+                            if (RecordCurrent.B603 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B603);
+                            }
+                        }
+                        else if (SubjectCode == "604")
+                        {
+                            if (RecordCurrent.B604 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B604);
+                            }                           
+                        }
+                        else if (SubjectCode == "605")
+                        {
+                            if (RecordCurrent.B605 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B605);
+                            }
+                        }   
+                        else if (SubjectCode == "606")
+                        {
+                            if (RecordCurrent.B606 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(RecordCurrent.B606);
+                            }
+                        }
+                        else
+                        {
+                            list = null;
+                        }
+                        foreach (var li in list)
+                        {
+                            if (li.AttedanceDateTime == CurrentDate && li.TimeSlot == TimeSlot)
+                            {
+                                CurrentAttendanceCode = li.AttendanceCode;
+                                break;
+                            }
+                        }
+                        students.StudentName = obj.StudentName;
+                        students.StudentCode = obj.StudentCode;
+                        students.ParentsNumber = obj.ParentsMobileno;
+                        students.CurrentAttendanceCode = CurrentAttendanceCode;
+                        StudentList.Add(students);
+                    }
+                }
+                //END
 
                 else
                 {
@@ -713,7 +1093,7 @@ namespace Attendance_Portal.Controllers
                         }
                         else
                         {
-                            if(AttendaceData.GEIC3!=null)
+                            if (AttendaceData.GEIC3 != null)
                             {
                                 list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.GEIC3);
                             }
@@ -757,6 +1137,353 @@ namespace Attendance_Portal.Controllers
 
 
                 }
+
+                #region Adding BCA 2,4,6 SEM END
+                //Adding BCA 2,4,6 SEM
+                else if (Semester == "2")
+                {
+                    AttendanceSheetBCA_2ND_SEM? AttendaceData = _db.AttendanceSheetBCA_2ND_SEM.Where(x => x.StudentCode == StudentCode).First();
+                    List<AttendanceJsonString>? list = new();
+                    if (AttendaceData != null)
+                    {
+                        if (SubjectCode == "AEC2")
+                        {
+                            if (AttendaceData.AEC2 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.AEC2);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.AEC2 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_2ND_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "CC3")
+                        {
+                            if (AttendaceData.CC3 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.CC3);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.CC3 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_2ND_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "CC4")
+                        {
+                            if (AttendaceData.CC4 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.CC4);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.CC4 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_2ND_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else
+                        {
+                            if (AttendaceData.GEIC2 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.GEIC2);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.GEIC2 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_2ND_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+
+                    }
+                    else
+                    {
+                        AttendanceSheetBCA_2ND_SEM AttendanceRecord = new AttendanceSheetBCA_2ND_SEM();
+                        AttendanceRecord.StudentCode = StudentCode;
+                        AttendanceJsonString NewData = new()
+                        {
+                            AttendanceCode = AttendanceCode,
+                            AttedanceDateTime = AttendaceDateTime,
+                            TimeSlot = TimeSlot,
+                            Remarks = Remarks
+                        };
+                        list.Add(NewData);
+                        if (CourseCode == "AEC2") { AttendanceRecord.AEC2 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "CC3") { AttendanceRecord.CC3 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "CC4") { AttendanceRecord.CC4 = JsonConvert.SerializeObject(list); }
+                        else { AttendanceRecord.GEIC2 = JsonConvert.SerializeObject(list); }
+
+                        _db.AttendanceSheetBCA_2ND_SEM.Add(AttendanceRecord);
+                        _db.SaveChanges();
+                        return Json("Sucess");
+                    }
+                }
+
+                else if (Semester == "4")
+                {
+                    AttendanceSheetBCA_4TH_SEM? AttendaceData = _db.AttendanceSheetBCA_4TH_SEM.Where(x => x.StudentCode == StudentCode).First();
+                    List<AttendanceJsonString>? list = new();
+                    if (AttendaceData != null)
+                    {
+                        if (SubjectCode == "CC8")
+                        {
+                            if (AttendaceData.CC8 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.CC8);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.CC8 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_4TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "CC9")
+                        {
+                            if (AttendaceData.CC9 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.CC9);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+
+                            };
+                            list.Add(NewData);
+                            AttendaceData.CC9 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_4TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "CC10")
+                        {
+                            if (AttendaceData.CC10 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.CC10);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.CC10 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_4TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "SEC2")
+                        {
+                            if (AttendaceData.SEC2 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.SEC2);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.SEC2 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_4TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else
+                        {
+                            if (AttendaceData.GEIC4 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.GEIC4);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.GEIC4 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_4TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+
+                    }
+                    else
+                    {
+                        AttendanceSheetBCA_4TH_SEM AttendanceRecord = new AttendanceSheetBCA_4TH_SEM();
+                        AttendanceRecord.StudentCode = StudentCode;
+                        AttendanceJsonString NewData = new()
+                        {
+                            AttendanceCode = AttendanceCode,
+                            AttedanceDateTime = AttendaceDateTime,
+                            TimeSlot = TimeSlot,
+                            Remarks = Remarks
+                        };
+                        list.Add(NewData);
+                        if (CourseCode == "CC8") { AttendanceRecord.CC8 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "CC9") { AttendanceRecord.CC9 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "CC10") { AttendanceRecord.CC10 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "SEC2") { AttendanceRecord.SEC2 = JsonConvert.SerializeObject(list); }
+                        else { AttendanceRecord.GEIC4 = JsonConvert.SerializeObject(list); }
+
+                        _db.AttendanceSheetBCA_4TH_SEM.Add(AttendanceRecord);
+                        _db.SaveChanges();
+                        return Json("Sucess");
+                    }
+
+                }
+
+                else if (Semester == "6")
+                {
+                    AttendanceSheetBCA_6TH_SEM? AttendaceData = _db.AttendanceSheetBCA_6TH_SEM.Where(x => x.StudentCode == StudentCode).First();
+                    List<AttendanceJsonString>? list = new();
+                    if (AttendaceData != null)
+                    {
+                        if (SubjectCode == "CC13")
+                        {
+                            if (AttendaceData.CC13 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.CC13);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.CC13 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_6TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "CC14")
+                        {
+                            if (AttendaceData.CC14 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.CC14);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.CC14 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_6TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "DSE3")
+                        {
+                            if (AttendaceData.DSEC3 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.DSEC3);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.DSEC3 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_6TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else
+                        {
+                            if (AttendaceData.DSEC4 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.DSEC4);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.DSEC4 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBCA_6TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+
+                    }
+                    else
+                    {
+                        AttendanceSheetBCA_6TH_SEM AttendanceRecord = new AttendanceSheetBCA_6TH_SEM();
+                        AttendanceRecord.StudentCode = StudentCode;
+                        AttendanceJsonString NewData = new()
+                        {
+                            AttendanceCode = AttendanceCode,
+                            AttedanceDateTime = AttendaceDateTime,
+                            TimeSlot = TimeSlot,
+                            Remarks = Remarks
+                        };
+                        list.Add(NewData);
+                        if (CourseCode == "CC13") { AttendanceRecord.CC13 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "CC14") { AttendanceRecord.CC14 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "DSEC3") { AttendanceRecord.DSEC3 = JsonConvert.SerializeObject(list); }
+                        else { AttendanceRecord.DSEC4 = JsonConvert.SerializeObject(list); }
+
+                        _db.AttendanceSheetBCA_6TH_SEM.Add(AttendanceRecord);
+                        _db.SaveChanges();
+                        return Json("Sucess");
+                    }
+                }
+                //Adding BCA 2,4,6 SEM END
+                #endregion
 
                 else
                 {
@@ -825,7 +1552,7 @@ namespace Attendance_Portal.Controllers
 
                         else
                         {
-                            if(AttendaceData.DSE2!=null)
+                            if (AttendaceData.DSE2 != null)
                             {
                                 list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.DSE2);
                             }
@@ -978,6 +1705,113 @@ namespace Attendance_Portal.Controllers
                     }
                 }
 
+                else if (Semester == "2")
+                {
+                    AttendanceSheetBBA_2ND_SEM? AttendaceData = _db.AttendanceSheetBBA_2ND_SEM.Where(x => x.StudentCode == StudentCode).First();
+                    List<AttendanceJsonString>? list = new();
+                    if (AttendaceData != null)
+                    {
+                        if (SubjectCode == "201")
+                        {
+                            if (AttendaceData.B201 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B201);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B201 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_2ND_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "202")
+                        {
+                            if (AttendaceData.B202 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B202);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B202 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_2ND_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "203")
+                        {
+                            if (AttendaceData.B203 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B203);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B203 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_2ND_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else
+                        {
+                            if (AttendaceData.B204 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B204);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B204 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_2ND_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+
+                    }
+                    else
+                    {
+                        AttendanceSheetBBA_2ND_SEM AttendanceRecord = new AttendanceSheetBBA_2ND_SEM();
+                        AttendanceRecord.StudentCode = StudentCode;
+                        AttendanceJsonString NewData = new()
+                        {
+                            AttendanceCode = AttendanceCode,
+                            AttedanceDateTime = AttendaceDateTime,
+                            TimeSlot = TimeSlot,
+                            Remarks = Remarks
+                        };
+                        list.Add(NewData);
+                        if (CourseCode == "201") { AttendanceRecord.B201 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "202") { AttendanceRecord.B202 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "204") { AttendanceRecord.B204 = JsonConvert.SerializeObject(list); }
+                        else { AttendanceRecord.B203 = JsonConvert.SerializeObject(list); }
+
+                        _db.AttendanceSheetBBA_2ND_SEM.Add(AttendanceRecord);
+                        _db.SaveChanges();
+                        return Json("Sucess");
+                    }
+                }
+
                 else if (Semester == "3")
                 {
                     AttendanceSheetBBA_3RD_SEM? AttendaceData = _db.AttendanceSheetBBA_3RD_SEM.Where(x => x.StudentCode == StudentCode).First();
@@ -1107,6 +1941,284 @@ namespace Attendance_Portal.Controllers
 
                 }
 
+                else if (Semester == "4")
+                {
+                    AttendanceSheetBBA_4TH_SEM? AttendaceData = _db.AttendanceSheetBBA_4TH_SEM.Where(x => x.StudentCode == StudentCode).First();
+                    List<AttendanceJsonString>? list = new();
+                    if (AttendaceData != null)
+                    {
+                        if (SubjectCode == "401")
+                        {
+                            if (AttendaceData.B401 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B401);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B401 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_4TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "402")
+                        {
+                            if (AttendaceData.B402 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B402);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B402 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_4TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "403")
+                        {
+                            if (AttendaceData.B403 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B403);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B403 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_4TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "404")
+                        {
+                            if (AttendaceData.B404 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B404);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B404 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_4TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else
+                        {
+                            if (AttendaceData.B405 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B405);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B405 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_4TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+
+                    }
+                    else
+                    {
+                        AttendanceSheetBBA_4TH_SEM AttendanceRecord = new AttendanceSheetBBA_4TH_SEM();
+                        AttendanceRecord.StudentCode = StudentCode;
+                        AttendanceJsonString NewData = new()
+                        {
+                            AttendanceCode = AttendanceCode,
+                            AttedanceDateTime = AttendaceDateTime,
+                            TimeSlot = TimeSlot,
+                            Remarks = Remarks
+                        };
+                        list.Add(NewData);
+                        if (CourseCode == "401") { AttendanceRecord.B401 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "402") { AttendanceRecord.B402 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "404") { AttendanceRecord.B404 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "405") { AttendanceRecord.B405 = JsonConvert.SerializeObject(list); }
+                        else { AttendanceRecord.B403 = JsonConvert.SerializeObject(list); }
+
+                        _db.AttendanceSheetBBA_4TH_SEM.Add(AttendanceRecord);
+                        _db.SaveChanges();
+                        return Json("Sucess");
+                    }
+
+
+                }
+
+                else if (Semester == "6")
+                {
+                    AttendanceSheetBBA_6TH_SEM? AttendaceData = _db.AttendanceSheetBBA_6TH_SEM.Where(x => x.StudentCode == StudentCode).First();
+                    List<AttendanceJsonString>? list = new();
+                    if (AttendaceData != null)
+                    {
+                        if (SubjectCode == "601")
+                        {
+                            if (AttendaceData.B601 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B601);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B601 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_6TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "602")
+                        {
+                            if (AttendaceData.B602 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B602);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B602 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_6TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "603")
+                        {
+                            if (AttendaceData.B603 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B603);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B603 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_6TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "604")
+                        {
+                            if (AttendaceData.B604 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B604);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B604 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_6TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else if (SubjectCode == "605")
+                        {
+                            if (AttendaceData.B605 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B605);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B605 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_6TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+                        else
+                        {
+                            if (AttendaceData.B606 != null)
+                            {
+                                list = list = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(AttendaceData.B606);
+                            }
+                            AttendanceJsonString NewData = new()
+                            {
+                                AttendanceCode = AttendanceCode,
+                                AttedanceDateTime = AttendaceDateTime,
+                                TimeSlot = TimeSlot,
+                                Remarks = Remarks
+                            };
+                            list.Add(NewData);
+                            AttendaceData.B606 = JsonConvert.SerializeObject(list);
+                            _db.AttendanceSheetBBA_6TH_SEM.Update(AttendaceData);
+                            _db.SaveChanges();
+                            return Json("Sucess");
+                        }
+
+                    }
+                    else
+                    {
+                        AttendanceSheetBBA_6TH_SEM AttendanceRecord = new AttendanceSheetBBA_6TH_SEM();
+                        AttendanceRecord.StudentCode = StudentCode;
+                        AttendanceJsonString NewData = new()
+                        {
+                            AttendanceCode = AttendanceCode,
+                            AttedanceDateTime = AttendaceDateTime,
+                            TimeSlot = TimeSlot,
+                            Remarks = Remarks
+                        };
+                        list.Add(NewData);
+                        if (CourseCode == "601") { AttendanceRecord.B601 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "602") { AttendanceRecord.B602 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "604") { AttendanceRecord.B604 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "605") { AttendanceRecord.B605 = JsonConvert.SerializeObject(list); }
+                        else if (CourseCode == "606") { AttendanceRecord.B606 = JsonConvert.SerializeObject(list); }
+                        else { AttendanceRecord.B603 = JsonConvert.SerializeObject(list); }
+
+                        _db.AttendanceSheetBBA_6TH_SEM.Add(AttendanceRecord);
+                        _db.SaveChanges();
+                        return Json("Sucess");
+                    }
+
+
+                }
+
                 else
                 {
                     AttendanceSheetBBA_5TH_SEM? AttendaceData = _db.AttendanceSheetBBA_5TH_SEM.Where(x => x.StudentCode == StudentCode).First();
@@ -1212,7 +2324,7 @@ namespace Attendance_Portal.Controllers
                             _db.SaveChanges();
                             return Json("Sucess");
                         }
-                        
+
                         else
                         {
                             if (AttendaceData.B506 != null)
@@ -1270,10 +2382,16 @@ namespace Attendance_Portal.Controllers
         public IActionResult _AttendanceRecord(string CourseCode, int SemCode, string StartDate, string EndDate, string SubjectCheck)
         {
             List<AttendanceSheetBCA_1ST_SEM> AttendanceSheet1ST = _db.AttendanceSheetBCA_1ST_SEM.ToList();
+            List<AttendanceSheetBCA_2ND_SEM> AttendanceSheet2ND = _db.AttendanceSheetBCA_2ND_SEM.ToList();
             List<AttendanceSheetBCA_3RD_SEM> AttendanceSheet3RD = _db.AttendanceSheetBCA_3RD_SEM.ToList();
+            List<AttendanceSheetBCA_4TH_SEM> AttendanceSheet4TH = _db.AttendanceSheetBCA_4TH_SEM.ToList();
             List<AttendanceSheetBCA_5TH_SEM> AttendanceSheet5TH = _db.AttendanceSheetBCA_5TH_SEM.ToList();
+            List<AttendanceSheetBCA_6TH_SEM> AttendanceSheet6TH = _db.AttendanceSheetBCA_6TH_SEM.ToList();
             List<AttendanceSheetBBA_1ST_SEM> AttendanceSheetB1ST = _db.AttendanceSheetBBA_1ST_SEM.ToList();
             List<AttendanceSheetBBA_3RD_SEM> AttendanceSheetB3RD = _db.AttendanceSheetBBA_3RD_SEM.ToList();
+            List<AttendanceSheetBBA_6TH_SEM> AttendanceSheetB6TH = _db.AttendanceSheetBBA_6TH_SEM.ToList();
+            List<AttendanceSheetBBA_4TH_SEM> AttendanceSheetB4TH = _db.AttendanceSheetBBA_4TH_SEM.ToList();
+            List<AttendanceSheetBBA_2ND_SEM> AttendanceSheetB2ND = _db.AttendanceSheetBBA_2ND_SEM.ToList();
             List<AttendanceSheetBBA_5TH_SEM> AttendanceSheetB5TH = _db.AttendanceSheetBBA_5TH_SEM.ToList();
             var year = 0;
             if (SemCode == 1) { year = 1; }
@@ -1282,7 +2400,7 @@ namespace Attendance_Portal.Controllers
             else if (SemCode == 4) { year = 2; }
             else if (SemCode == 5) { year = 3; }
             else if (SemCode == 6) { year = 3; }
-            List<StudentsInfo> studentsInfos = _db.StudentsInfo.Where(x=>x.Course==CourseCode &&x.Year==year).ToList();
+            List<StudentsInfo> studentsInfos = _db.StudentsInfo.Where(x => x.Course == CourseCode && x.Year == year).ToList();
             List<AttendanceRecord> AttendanceRecordList = new();
             List<AttendanceJsonString> jsonlist = new();
             foreach (var obj in studentsInfos)
@@ -1377,6 +2495,82 @@ namespace Attendance_Portal.Controllers
                         }
                     }
 
+                    else if (SemCode == 2)
+                    {
+                        if (SubjectCheck == "0")
+                        {
+                            List<Subject> Subject = _db.Subject.Where(x => x.SemCode == SemCode && x.CourseCode == CourseCode).ToList();
+                            foreach (var ob in Subject)
+                            {
+                                AttendanceSheetBCA_2ND_SEM Sheet = AttendanceSheet2ND.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();                                
+                                if (ob.SubCode == "AEC2" && Sheet.AEC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.AEC2); }
+                                else if (ob.SubCode == "CC3" && Sheet.CC3 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC3); }
+                                else if (ob.SubCode == "CC4" && Sheet.CC4 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC4); }
+                                else { if (Sheet.GEIC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.GEIC2); } else { jsonlist = null; } }
+
+                                if (jsonlist != null)
+                                {
+                                    foreach (var js in jsonlist)
+                                    {
+                                        var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                        if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                        {
+                                            if (js.AttendanceCode == "1")
+                                            {
+                                                Present++;
+                                            }
+                                            else if (js.AttendanceCode == "2")
+                                            {
+                                                Absent++;
+                                            }
+                                            else
+                                            {
+                                                Late++;
+                                            }
+                                            TotalClass++;
+                                        }
+
+                                    }
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                            AttendanceSheetBCA_2ND_SEM Sheet = AttendanceSheet2ND.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();                            
+                            if (SubjectCheck == "AEC2" && Sheet.AEC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.AEC2); }
+                            else if (SubjectCheck == "CC3" && Sheet.CC3 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC3); }
+                            else if (SubjectCheck == "CC4" && Sheet.CC4 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC4); }
+                            else { if (Sheet.GEIC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.GEIC2); } else { jsonlist = null; } }
+
+                            if (jsonlist != null)
+                            {
+                                foreach (var js in jsonlist)
+                                {
+                                    var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                    if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                    {
+                                        if (js.AttendanceCode == "1")
+                                        {
+                                            Present++;
+                                        }
+                                        else if (js.AttendanceCode == "2")
+                                        {
+                                            Absent++;
+                                        }
+                                        else
+                                        {
+                                            Late++;
+                                        }
+                                        TotalClass++;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
                     else if (SemCode == 3)
                     {
                         if (SubjectCheck == "0")
@@ -1427,6 +2621,160 @@ namespace Attendance_Portal.Controllers
                             else if (SubjectCheck == "CC7" && Sheet.CC7 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC7); }
                             else if (SubjectCheck == "SEC1" && Sheet.SEC1 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.SEC1); }
                             else { if (Sheet.GEIC3 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.GEIC3); } else { jsonlist = null; } }
+
+                            if (jsonlist != null)
+                            {
+                                foreach (var js in jsonlist)
+                                {
+                                    var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                    if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                    {
+                                        if (js.AttendanceCode == "1")
+                                        {
+                                            Present++;
+                                        }
+                                        else if (js.AttendanceCode == "2")
+                                        {
+                                            Absent++;
+                                        }
+                                        else
+                                        {
+                                            Late++;
+                                        }
+                                        TotalClass++;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    else if (SemCode == 4)
+                    {
+                        if (SubjectCheck == "0")
+                        {
+                            List<Subject> Subject = _db.Subject.Where(x => x.SemCode == SemCode && x.CourseCode == CourseCode).ToList();
+                            foreach (var ob in Subject)
+                            {
+                                AttendanceSheetBCA_4TH_SEM Sheet = AttendanceSheet4TH.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                                if (ob.SubCode == "CC8" && Sheet.CC8 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC8); }
+                                else if (ob.SubCode == "CC9" && Sheet.CC9 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC9); }
+                                else if (ob.SubCode == "CC10" && Sheet.CC10 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC10); }
+                                else if (ob.SubCode == "SEC2" && Sheet.SEC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.SEC2); }
+                                else { if (Sheet.GEIC4 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.GEIC4); } else { jsonlist = null; } }
+
+                                if (jsonlist != null)
+                                {
+                                    foreach (var js in jsonlist)
+                                    {
+                                        var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                        if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                        {
+                                            if (js.AttendanceCode == "1")
+                                            {
+                                                Present++;
+                                            }
+                                            else if (js.AttendanceCode == "2")
+                                            {
+                                                Absent++;
+                                            }
+                                            else
+                                            {
+                                                Late++;
+                                            }
+                                            TotalClass++;
+                                        }
+
+                                    }
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                            AttendanceSheetBCA_4TH_SEM Sheet = AttendanceSheet4TH.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                            if (SubjectCheck == "CC8" && Sheet.CC8 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC8); }
+                            else if (SubjectCheck == "CC9" && Sheet.CC9 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC9); }
+                            else if (SubjectCheck == "CC10" && Sheet.CC10 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC10); }
+                            else if (SubjectCheck == "SEC2" && Sheet.SEC2 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.SEC2); }
+                            else { if (Sheet.GEIC4 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.GEIC4); } else { jsonlist = null; } }
+
+                            if (jsonlist != null)
+                            {
+                                foreach (var js in jsonlist)
+                                {
+                                    var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                    if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                    {
+                                        if (js.AttendanceCode == "1")
+                                        {
+                                            Present++;
+                                        }
+                                        else if (js.AttendanceCode == "2")
+                                        {
+                                            Absent++;
+                                        }
+                                        else
+                                        {
+                                            Late++;
+                                        }
+                                        TotalClass++;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    else if (SemCode == 6)
+                    {
+                        if (SubjectCheck == "0")
+                        {
+                            List<Subject> Subject = _db.Subject.Where(x => x.SemCode == SemCode && x.CourseCode == CourseCode).ToList();
+                            foreach (var ob in Subject)
+                            {
+                                AttendanceSheetBCA_6TH_SEM Sheet = AttendanceSheet6TH.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                                if (ob.SubCode == "CC13" && Sheet.CC13 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC13); }
+                                else if (ob.SubCode == "CC14" && Sheet.CC14 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC14); }
+                                else if (ob.SubCode == "DSEC3" && Sheet.DSEC3 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.DSEC3); }
+                                else { if (Sheet.DSEC4 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.DSEC4); } else { jsonlist = null; } }
+
+                                if (jsonlist != null)
+                                {
+                                    foreach (var js in jsonlist)
+                                    {
+                                        var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                        if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                        {
+                                            if (js.AttendanceCode == "1")
+                                            {
+                                                Present++;
+                                            }
+                                            else if (js.AttendanceCode == "2")
+                                            {
+                                                Absent++;
+                                            }
+                                            else
+                                            {
+                                                Late++;
+                                            }
+                                            TotalClass++;
+                                        }
+
+                                    }
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                            AttendanceSheetBCA_6TH_SEM Sheet = AttendanceSheet6TH.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                            if (SubjectCheck == "CC13" && Sheet.CC13 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC13); }
+                            else if (SubjectCheck == "CC14" && Sheet.CC14 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.CC14); }
+                            else if (SubjectCheck == "DSEC3" && Sheet.DSEC3 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.DSEC3); }
+                            else { if (Sheet.DSEC4 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.DSEC4); } else { jsonlist = null; } }
 
                             if (jsonlist != null)
                             {
@@ -1686,6 +3034,242 @@ namespace Attendance_Portal.Controllers
                             }
                         }
                     }
+
+                    //bba 2,4,6 sem add
+                    else if (SemCode == 2)
+                    {
+                        if (SubjectCheck == "0")
+                        {
+                            List<Subject> Subject = _db.Subject.Where(x => x.SemCode == SemCode && x.CourseCode == CourseCode).ToList();
+                            foreach (var ob in Subject)
+                            {
+                                AttendanceSheetBBA_2ND_SEM Sheet = AttendanceSheetB2ND.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                                if (ob.SubCode == "201" && Sheet.B201 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B201); }
+                                else if (ob.SubCode == "202" && Sheet.B202 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B202); }
+                                else if (ob.SubCode == "203" && Sheet.B203 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B203); }
+                                else { if (Sheet.B204 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B204); } else { jsonlist = null; } }
+
+                                if (jsonlist != null)
+                                {
+                                    foreach (var js in jsonlist)
+                                    {
+                                        var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                        if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                        {
+                                            if (js.AttendanceCode == "1")
+                                            {
+                                                Present++;
+                                            }
+                                            else if (js.AttendanceCode == "2")
+                                            {
+                                                Absent++;
+                                            }
+                                            else
+                                            {
+                                                Late++;
+                                            }
+                                            TotalClass++;
+                                        }
+
+                                    }
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                            AttendanceSheetBBA_2ND_SEM Sheet = AttendanceSheetB2ND.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                            if (SubjectCheck == "201" && Sheet.B201 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B201); }
+                            else if (SubjectCheck == "202" && Sheet.B202 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B202); }
+                            else if (SubjectCheck == "203" && Sheet.B203 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B203); }
+                            else { if (Sheet.B204 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B204); } else { jsonlist = null; } }
+
+                            if (jsonlist != null)
+                            {
+                                foreach (var js in jsonlist)
+                                {
+                                    var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                    if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                    {
+                                        if (js.AttendanceCode == "1")
+                                        {
+                                            Present++;
+                                        }
+                                        else if (js.AttendanceCode == "2")
+                                        {
+                                            Absent++;
+                                        }
+                                        else
+                                        {
+                                            Late++;
+                                        }
+                                        TotalClass++;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    else if (SemCode == 4)
+                    {
+                        if (SubjectCheck == "0")
+                        {
+                            List<Subject> Subject = _db.Subject.Where(x => x.SemCode == SemCode && x.CourseCode == CourseCode).ToList();
+                            foreach (var ob in Subject)
+                            {
+                                AttendanceSheetBBA_4TH_SEM Sheet = AttendanceSheetB4TH.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                                if (ob.SubCode == "401" && Sheet.B401 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B401); }
+                                else if (ob.SubCode == "402" && Sheet.B402 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B402); }
+                                else if (ob.SubCode == "403" && Sheet.B403 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B403); }
+                                else if (ob.SubCode == "405" && Sheet.B405 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B405); }
+                                else { if (Sheet.B404 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B404); } else { jsonlist = null; } }
+
+                                if (jsonlist != null)
+                                {
+                                    foreach (var js in jsonlist)
+                                    {
+                                        var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                        if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                        {
+                                            if (js.AttendanceCode == "1")
+                                            {
+                                                Present++;
+                                            }
+                                            else if (js.AttendanceCode == "2")
+                                            {
+                                                Absent++;
+                                            }
+                                            else
+                                            {
+                                                Late++;
+                                            }
+                                            TotalClass++;
+                                        }
+
+                                    }
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                            AttendanceSheetBBA_4TH_SEM Sheet = AttendanceSheetB4TH.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                            if (SubjectCheck == "401" && Sheet.B401 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B401); }
+                            else if (SubjectCheck == "402" && Sheet.B402 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B402); }
+                            else if (SubjectCheck == "403" && Sheet.B403 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B403); }
+                            else if (SubjectCheck == "405" && Sheet.B405 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B405); }
+                            else { if (Sheet.B404 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B404); } else { jsonlist = null; } }
+
+                            if (jsonlist != null)
+                            {
+                                foreach (var js in jsonlist)
+                                {
+                                    var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                    if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                    {
+                                        if (js.AttendanceCode == "1")
+                                        {
+                                            Present++;
+                                        }
+                                        else if (js.AttendanceCode == "2")
+                                        {
+                                            Absent++;
+                                        }
+                                        else
+                                        {
+                                            Late++;
+                                        }
+                                        TotalClass++;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    else if (SemCode == 6)
+                    {
+                        if (SubjectCheck == "0")
+                        {
+                            List<Subject> Subject = _db.Subject.Where(x => x.SemCode == SemCode && x.CourseCode == CourseCode).ToList();
+                            foreach (var ob in Subject)
+                            {
+                                AttendanceSheetBBA_6TH_SEM Sheet = AttendanceSheetB6TH.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                                if (ob.SubCode == "601" && Sheet.B601 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B601); }
+                                else if (ob.SubCode == "602" && Sheet.B602 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B602); }
+                                else if (ob.SubCode == "603" && Sheet.B603 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B603); }
+                                else if (ob.SubCode == "605" && Sheet.B605 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B605); }
+                                else if (ob.SubCode == "605" && Sheet.B606 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B606); }
+                                else { if (Sheet.B604 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B604); } else { jsonlist = null; } }
+
+                                if (jsonlist != null)
+                                {
+                                    foreach (var js in jsonlist)
+                                    {
+                                        var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                        if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                        {
+                                            if (js.AttendanceCode == "1")
+                                            {
+                                                Present++;
+                                            }
+                                            else if (js.AttendanceCode == "2")
+                                            {
+                                                Absent++;
+                                            }
+                                            else
+                                            {
+                                                Late++;
+                                            }
+                                            TotalClass++;
+                                        }
+
+                                    }
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                            AttendanceSheetBBA_6TH_SEM Sheet = AttendanceSheetB6TH.Where(x => x.StudentCode == obj.StudentCode).FirstOrDefault();
+                            if (SubjectCheck == "601" && Sheet.B601 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B601); }
+                            else if (SubjectCheck == "602" && Sheet.B602 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B602); }
+                            else if (SubjectCheck == "603" && Sheet.B603 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B603); }
+                            else if (SubjectCheck == "605" && Sheet.B605 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B605); }
+                            else if (SubjectCheck == "606" && Sheet.B606 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B606); }
+                            else { if (Sheet.B604 != null) { jsonlist = jsonlist = JsonConvert.DeserializeObject<List<AttendanceJsonString>>(Sheet.B604); } else { jsonlist = null; } }
+
+                            if (jsonlist != null)
+                            {
+                                foreach (var js in jsonlist)
+                                {
+                                    var Rdate = Convert.ToDateTime(js.AttedanceDateTime);
+                                    if (Rdate >= Convert.ToDateTime(StartDate) && Rdate <= Convert.ToDateTime(EndDate))
+                                    {
+                                        if (js.AttendanceCode == "1")
+                                        {
+                                            Present++;
+                                        }
+                                        else if (js.AttendanceCode == "2")
+                                        {
+                                            Absent++;
+                                        }
+                                        else
+                                        {
+                                            Late++;
+                                        }
+                                        TotalClass++;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    //end
 
                     else
                     {
